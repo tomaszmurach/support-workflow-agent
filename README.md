@@ -27,4 +27,36 @@ Python, FastAPI, Pydantic, async SQLAlchemy, Alembic, PostgreSQL, pgvector, Open
 
 ## Development status
 
-No application code or setup commands are available yet. This repository skeleton records the decisions to review before M1 (environment setup and implementation). The data used for the demo will be synthetic. Do not commit API keys, real customer information or secrets.
+
+## Local Development
+
+### Requirements
+
+- Python 3.13
+- Git
+
+### Setup (Windows / PowerShell)
+
+```powershell
+py -3.13 -m venv .venv
+.\.venv\Scripts\Activate.ps1
+python -m pip install -e ".[dev]"
+```
+
+### Run the API
+
+```powershell
+python -m uvicorn support_workflow_agent.main:app --reload
+```
+
+- Health endpoint: http://127.0.0.1:8000/health
+- Swagger UI: http://127.0.0.1:8000/docs
+
+### Run checks
+
+```powershell
+python -m pytest -v
+python -m ruff check .
+python -m ruff format --check .
+```
+
