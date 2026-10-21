@@ -1,10 +1,10 @@
 # AI Support Workflow Agent
 
-> Portfolio project — **Support Copilot** for e-commerce operators. **Status: M0 architecture draft; implementation not started.**
+> Portfolio project — **Support Copilot** for e-commerce operators. **Status: M1 foundations in progress; API skeleton implemented.**
 
-A Python backend where a support operator requests an AI-assisted analysis of a customer ticket. The agent can read a ticket-scoped order, retrieve store policies, and draft a grounded reply. Escalation is a **proposal**, not an automatic write: a human must approve it, and the backend re-checks business rules before making the change.
+The planned Python backend will let a support operator request an AI-assisted analysis of a customer ticket. The agent will read a ticket-scoped order, retrieve store policies, and draft a grounded reply. Escalation will require a **proposal**, human approval, and backend business-rule checks before any change.
 
-## What makes this more than a chatbot?
+## Planned capabilities
 
 - Controlled tool/function calling against application services, not arbitrary SQL.
 - Typed and validated AI outputs with traceable evidence references.
@@ -27,6 +27,9 @@ Python, FastAPI, Pydantic, async SQLAlchemy, Alembic, PostgreSQL, pgvector, Open
 
 ## Development status
 
+- **Implemented:** Python 3.13 package setup, FastAPI application with a typed `GET /health` response (`{"status":"ok"}`), a health endpoint test, and pytest/Ruff configuration.
+- **Next (remaining M1 foundations):** PostgreSQL, migrations, synthetic fixtures, and GitHub Actions quality gates.
+- **Planned (M2–M5):** ticket/order services, LLM tool calling and persisted analyses, knowledge retrieval, approval and audit workflows, evaluations, and an operator UI. None of these workflows is implemented yet.
 
 ## Local Development
 
