@@ -1,6 +1,7 @@
 # AI Support Workflow Agent
 
-> Portfolio project — **Support Copilot** for e-commerce operators. **Status: M1 foundations in progress; API skeleton implemented.**
+> Portfolio project — **Support Copilot** for e-commerce operators.
+> **Status: M1 foundations in progress; FastAPI skeleton and local PostgreSQL available.**
 
 The planned Python backend will let a support operator request an AI-assisted analysis of a customer ticket. The agent will read a ticket-scoped order, retrieve store policies, and draft a grounded reply. Escalation will require a **proposal**, human approval, and backend business-rule checks before any change.
 
@@ -27,16 +28,56 @@ Python, FastAPI, Pydantic, async SQLAlchemy, Alembic, PostgreSQL, pgvector, Open
 
 ## Development status
 
-- **Implemented:** Python 3.13 package setup, FastAPI application with a typed `GET /health` response (`{"status":"ok"}`), a health endpoint test, and pytest/Ruff configuration.
-- **Next (remaining M1 foundations):** PostgreSQL, migrations, synthetic fixtures, and GitHub Actions quality gates.
-- **Planned (M2–M5):** ticket/order services, LLM tool calling and persisted analyses, knowledge retrieval, approval and audit workflows, evaluations, and an operator UI. None of these workflows is implemented yet.
+- **Implemented:** Python 3.13 package setup, FastAPI application with a typed `GET /health` endpoint, pytest/Ruff configuration, and local PostgreSQL 17 with pgvector managed by Docker Compose.
+- **Next (remaining M1 foundations):** SQLAlchemy models, Alembic migrations, synthetic fixtures, and GitHub Actions quality gates.
+- **Planned (M2–M5):** Ticket/order services, LLM tool calling, persisted analyses, knowledge retrieval, human approval workflows, evaluations, and an operator UI.
+
 
 ## Local Development
+
+### Local PostgreSQL
+
+The development database runs in Docker Compose
+using PostgreSQL 17 with pgvector.
+
+Create a local environment file:
+
+```powershell
+Copy-Item .env.example .env
+```
+
+Set a local password in `.env`.
+
+Start PostgreSQL:
+
+```powershell
+docker compose up -d db
+docker compose ps
+```
+
+The database is available at `127.0.0.1:5433`.
+
+Connect using psql:
+
+```powershell
+docker compose exec db psql -U support_agent -d support_workflow
+```
+
+Stop and remove containers without deleting database data:
+
+```powershell
+docker compose down
+```
+
+Database files are persisted in the `postgres_data`
+Docker named volume.
+
 
 ### Requirements
 
 - Python 3.13
 - Git
+- Docker Desktop with Docker Compose
 
 ### Setup (Windows / PowerShell)
 
