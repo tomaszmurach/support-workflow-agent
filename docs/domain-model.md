@@ -8,7 +8,7 @@
 |---|---|---|
 | `Customer` | `id: UUID`, display name | Synthetic records only |
 | `Order` | `id: UUID`, `order_number: string` (e.g. `ORD-1042`), `customer_id`, `status`, `promised_delivery_at`, `delivered_at` | Owner is authoritative; order status != delay flag |
-| `Ticket` | `id: UUID`, `customer_id`, nullable `order_id: UUID`, `message`, `status`, `version` | Order, if linked, must belong to ticket's customer |
+| `Ticket` | `id: UUID`, `customer_id`, nullable `order_id: UUID`, `message`, `status`, `version`, `created_at` | Order, if linked, must belong to ticket's customer; `created_at` is non-nullable, timezone-aware and defaults to a database-generated timestamp |
 | `AgentRun` | `id: UUID`, `ticket_id`, `status`, `model_id`, prompt version, timestamps, usage, error code, validated result | One analysis attempt; previous runs are not overwritten |
 | `ActionProposal` | `id: UUID`, `agent_run_id`, `ticket_id`, `type`, `status`, `reason`, `expected_ticket_version`, decision timestamps/operator id | Only backend changes status, not LLM |
 | `KnowledgeDocument` | `id`, title, version, source status | Only published content can be retrieved |
